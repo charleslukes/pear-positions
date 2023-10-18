@@ -3,11 +3,11 @@
 ## Setup
 
 ```
-npm install
+yarn
 ```
 
 ## Development
 
 ```
-npm run dev
+yarn dev
 ```
