@@ -8,6 +8,7 @@ import {
 import { abiAndContractMapper } from "../utils/init";
 import { Token, Position } from "../types";
 import {
+  bigIntToJson,
   getDeltaStr,
   getFundingFee,
   getLeverage,
@@ -105,11 +106,7 @@ export const getAllPositions = async (
   );
 
   return {
-    positions: JSON.parse(
-      JSON.stringify(derivedPositions, (_, v) =>
-        typeof v === "bigint" ? v.toString() : v
-      )
-    ),
+    positions: bigIntToJson(derivedPositions),
   };
 };
 

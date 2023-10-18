@@ -302,3 +302,11 @@ export function getValidWhitelistedTokensAndAddress() {
     whitelistedTokens,
   };
 }
+
+export function bigIntToJson(payload: unknown) {
+  return JSON.parse(
+    JSON.stringify(payload, (_, v) =>
+      typeof v === "bigint" ? v.toString() : v
+    )
+  )
+}
