@@ -11,6 +11,6 @@ router.get<{}, MessageResponse>("/", (req, res) => {
 });
 
 // mount all routes
-router.use('/positions', routes);
+router.use('/', routes);
 
 export default router;
