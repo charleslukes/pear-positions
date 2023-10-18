@@ -1,9 +1,9 @@
 import {
   BASIS_POINTS_DIVISOR,
   MARGIN_FEE_BASIS_POINTS,
-  TOKENS,
   abs,
   address,
+  nativeTokenAddress,
 } from "../utils/constants";
 import { abiAndContractMapper } from "../utils/init";
 import { Token, Position } from "../types";
@@ -17,6 +17,7 @@ import {
   getPositionKeyWithAdapter,
   getPositionQuery,
   getTokenInfo,
+  getValidWhitelistedTokensAndAddress,
   instantiateContract,
   isAddressValid,
 } from "../utils/helpers";
@@ -37,14 +38,7 @@ export const getAllPositions = async (
   }
   const infoTokens = await getDetailedTokenInfos(account);
 
-  const tokenAddresses = Object.values(address.tokens);
-  const whitelistedTokensAddresses = TOKENS.arbitrum
-    .filter((data) => tokenAddresses.includes(data.address))
-    .map((data) => data.address);
-
-  const whitelistedTokens = TOKENS.arbitrum.filter((data) =>
-    whitelistedTokensAddresses.includes(data.address)
-  );
+  const { whitelistedTokens } = getValidWhitelistedTokensAndAddress();
 
   const { positionQuery, positionsData, positionIds, positionsAdapters } =
     await getPositions(account, whitelistedTokens);
@@ -55,13 +49,13 @@ export const getAllPositions = async (
       infoTokens,
       collateralTokens[i],
       true,
-      address.tokens.ETH
+      nativeTokenAddress
     );
     const indexToken = getTokenInfo(
       infoTokens,
       indexTokens[i],
       true,
-      address.tokens.ETH
+      nativeTokenAddress
     );
     const key = getPositionKey(
       account,
@@ -136,7 +130,7 @@ export const derivePositions = (
       position.collateralToken.address,
       position.indexToken.address,
       position.isLong,
-      address.tokens.ETH
+      nativeTokenAddress
     );
 
     const adapterKey = getPositionKeyWithAdapter(
@@ -145,7 +139,7 @@ export const derivePositions = (
       position.indexToken.address,
       position.adapter,
       position.isLong,
-      address.tokens.ETH
+      nativeTokenAddress
     );
 
     position.key = key;

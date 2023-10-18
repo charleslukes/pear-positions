@@ -4,22 +4,20 @@ import {
   USDG_ADDRESS,
   USD_DECIMALS,
   address,
+  nativeTokenAddress,
   serverUrl,
 } from "../utils/constants";
 import { abiAndContractMapper } from "../utils/init";
 import { InfoTokens, TokenInfo } from "../types";
 import { expandDecimals } from "../utils/numbers";
-import { getSpread, instantiateContract } from "../utils/helpers";
+import { getSpread, getValidWhitelistedTokensAndAddress, instantiateContract } from "../utils/helpers";
 
 export const tokenInfo = async (account: string) => {
-  const tokenAddresses = Object.values(address.tokens);
   const vaultReaderAddress = address.contracts.VAULT_READER;
   const vaultAddress = address.contracts.GMX_VAULT;
   const positionRouterAddress = address.contracts.GMX_POSITION_ROUTER;
-  const nativeTokenAddress = address.tokens.ETH;
-  const whitelistedTokensAddresses = TOKENS.arbitrum
-    .filter((data) => tokenAddresses.includes(data.address))
-    .map((data) => data.address);
+  
+  const { tokenAddresses, whitelistedTokensAddresses } = getValidWhitelistedTokensAndAddress();
 
   const vaultReaderContract = instantiateContract(
     vaultReaderAddress,
