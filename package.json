@@ -1,5 +1,5 @@
 {
-  "name": "express-api-starter-ts",
+  "name": "pear-positions",
   "version": "1.2.0",
   "description": " A basic starter for an express.js API with Typescript",
   "main": "src/index.ts",
@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
-  "author": "CJ R. <cj@null.computer> (https://w3cj.now.sh)",
+  "author": "Charles Chiakwa",
   "repository": {
     "type": "git",
     "url": "https://github.com/w3cj/express-api-starter.git"
