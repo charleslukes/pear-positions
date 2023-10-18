@@ -4,6 +4,7 @@ import {
   BASIS_POINTS_DIVISOR,
   FUNDING_RATE_PRECISION,
   MARGIN_FEE_BASIS_POINTS,
+  TOKENS,
   USD_DECIMALS,
   address,
   arbitrum_rpc,
@@ -283,4 +284,21 @@ export function getPositionKey(
   const tokenAddress1 =
     indexTokenAddress === AddressZero ? nativeTokenAddress : indexTokenAddress;
   return account + ":" + tokenAddress0 + ":" + tokenAddress1 + ":" + isLong;
+}
+
+export function getValidWhitelistedTokensAndAddress() {
+  const tokenAddresses = Object.values(address.tokens);
+  const whitelistedTokensAddresses = TOKENS.arbitrum
+    .filter((data) => tokenAddresses.includes(data.address))
+    .map((data) => data.address);
+
+  const whitelistedTokens = TOKENS.arbitrum.filter((data) =>
+    whitelistedTokensAddresses.includes(data.address)
+  );
+
+  return {
+    tokenAddresses,
+    whitelistedTokensAddresses,
+    whitelistedTokens,
+  };
 }

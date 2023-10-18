@@ -176,3 +176,4 @@ export const THRESHOLD_REDEMPTION_VALUE = expandDecimals(993, 27); // 0.993
 export const LIQUIDATION_FEE = expandDecimals(5, USD_DECIMALS);
 
 export const AddressZero = "0x0000000000000000000000000000000000000000";
+export const nativeTokenAddress = address.tokens.ETH;
